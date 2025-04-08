@@ -42,7 +42,7 @@ const HomePage = () => {
     const timer = setTimeout(() => {
       setHomeStays(mockHomeStays);
       setIsLoading(false);
-    }, 1000);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);

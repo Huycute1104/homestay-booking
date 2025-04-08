@@ -32,7 +32,7 @@ const RoomCard = (props) => {
     >
       <div className="relative overflow-hidden aspect-[4/3]">
         <img
-          src={props.roomImageUrl}
+          src={props.roomImageUrls[0]}
           alt={props.roomName}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
@@ -144,32 +144,32 @@ const HomeStayDetailsPage = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [pageSize] = useState(10);
 
-  const { roomID } = useParams();
-  console.log("roomID", roomID);
+  const { homeStayID } = useParams();
 
   useEffect(() => {
-    if (!roomID) {
-      setError("Room ID is missing.");
+    if (!homeStayID) {
+      setError("Home Stay ID is missing.");
       return;
     }
 
     setLoading(true);
     setTimeout(() => {
-      const homeStay = mockHomeStays.find((homeStay) =>
-        homeStay.rooms.some((room) => room.roomID === roomID)
+      const homeStay = mockHomeStays.find(
+        (homeStay) =>
+          homeStay.homeStayID === homeStayID &&
+          homeStay.rooms.some((room) => room.roomID === homeStayID)
       );
 
       if (homeStay) {
-        const room = homeStay.rooms.find((room) => room.roomID === roomID);
-        setRooms([room]); // Set the room directly
-        setTotalItems(1); // Only one room found
+        setRooms(homeStay.rooms);
+        setTotalItems(homeStay.rooms.length);
       } else {
         setError("Không tìm thấy phòng phù hợp.");
       }
 
       setLoading(false);
-    }, 800);
-  }, [roomID]);
+    }, 100);
+  }, [homeStayID]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };

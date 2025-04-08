@@ -15,15 +15,46 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import React, { useState } from "react";
 
-const ComboSelector = ({ combos, onComboSelect }) => {
+// Dummy data cho combo
+const dummyCombos = [
+  {
+    comboDTO: {
+      comboID: "combo1",
+      comboName: "Combo 2H",
+    },
+  },
+  {
+    comboDTO: {
+      comboID: "combo2",
+      comboName: "Combo 4h",
+    },
+  },
+  {
+    comboDTO: {
+      comboID: "combo3",
+      comboName: "Combo 12",
+    },
+  },
+];
+
+const ComboSelector = ({ onComboSelect = (combo) => console.log(combo) }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
+  // Sử dụng dummy data
+  const combos = dummyCombos;
+
   const handleSelect = (combo) => {
-    setValue(combo.comboDTO.comboID);
-    onComboSelect(combo);
-    setOpen(false);
+    if (combo?.comboDTO?.comboID) {
+      setValue(combo.comboDTO.comboID);
+      onComboSelect(combo);
+      setOpen(false);
+    }
   };
+
+  const selectedCombo = combos.find(
+    (combo) => combo?.comboDTO?.comboID === value
+  );
 
   return (
     <div className="mt-10">
@@ -41,10 +72,7 @@ const ComboSelector = ({ combos, onComboSelect }) => {
             aria-expanded={open}
             className="w-full justify-between border-[1px] text-[#495560] border-gray-300 rounded-xl px-5 py-6"
           >
-            {value
-              ? combos.find((combo) => combo.comboDTO.comboID === value)
-                  ?.comboDTO.comboName
-              : "Chọn combo..."}
+            {selectedCombo?.comboDTO?.comboName || "Chọn combo..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -53,21 +81,24 @@ const ComboSelector = ({ combos, onComboSelect }) => {
             <CommandList>
               <CommandEmpty>No combo found.</CommandEmpty>
               <CommandGroup>
-                {combos.map((combo) => (
-                  <CommandItem
-                    key={combo.comboDTO.comboID}
-                    onSelect={() => handleSelect(combo)}
-                  >
-                    <Check
-                      className={`mr-2 h-4 w-4 ${
-                        value === combo.comboDTO.comboID
-                          ? "opacity-100"
-                          : "opacity-0"
-                      }`}
-                    />
-                    {combo.comboDTO.comboName}
-                  </CommandItem>
-                ))}
+                {combos.map((combo) => {
+                  const id = combo?.comboDTO?.comboID;
+                  const name = combo?.comboDTO?.comboName;
+                  if (!id || !name) return null;
+                  return (
+                    <CommandItem
+                      key={id}
+                      onSelect={() => handleSelect(combo)}
+                    >
+                      <Check
+                        className={`mr-2 h-4 w-4 ${
+                          value === id ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                      {name}
+                    </CommandItem>
+                  );
+                })}
               </CommandGroup>
             </CommandList>
           </Command>

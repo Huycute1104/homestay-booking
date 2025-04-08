@@ -7,6 +7,7 @@ import AboutUsPage from "./pages/AboutUs/AboutUsPage.jsx"
 import ContactPage from "./pages/Contact/ContactPage.jsx"
 import BookingHistoryPage from "./pages/UserProfile/components/BookingHistoryPage.jsx"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.jsx"
+import BookingPage from "./pages/Booking/BookingPage.jsx"
 import './App.css'
 import ProductListPage from "./pages/TestPage/ProductListPage .jsx"
 import HomeStayDetailsPage from "./pages/HomePage/DetailPage.jsx";
@@ -24,7 +25,8 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/booking-history" element={<BookingHistoryPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-        <Route path="/homestay/:roomID" element={<HomeStayDetailsPage />} />
+        <Route path="/homestay/:homeStayID" element={<HomeStayDetailsPage />} />
+        <Route path="/room/:roomID" element={<BookingPage />} />
       </Routes>
     </Router>
   )

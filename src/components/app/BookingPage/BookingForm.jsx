@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import ComboSelector from "./ComboSelector";
 import CustomBookingForm from "./CustomBookingForm";
 import DateSelector from "./DateSelector";
@@ -22,12 +21,7 @@ export default function BookingForm({ combos, maxGuest, homeStayID, data }) {
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
-  const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("accessToken");
-  const decodedToken = token ? jwtDecode(token) : null;
-  const userId = decodedToken?.id;
-  const navigate = useNavigate();
 
   const handleComboSelect = (combo) => {
     setSelectedCombo(combo);
@@ -35,7 +29,7 @@ export default function BookingForm({ combos, maxGuest, homeStayID, data }) {
 
   useEffect(() => {
     if (selectedCombo && fromDate) {
-      const checkInTime = transformToCheckInTimev2(fromDate);
+      const checkInTime = dayjs(fromDate); // dùng dayjs trực tiếp thay vì transformToCheckInTimev2
       const checkoutTime = dayjs(checkInTime).add(
         selectedCombo.comboDTO.hourRange,
         "hour"
@@ -61,12 +55,6 @@ export default function BookingForm({ combos, maxGuest, homeStayID, data }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!token) {
-      navigate("/login");
-      toast.warning("Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.");
-      return;
-    }
 
     if (!validateForm()) return;
 
@@ -151,7 +139,7 @@ export default function BookingForm({ combos, maxGuest, homeStayID, data }) {
                 </Label>
                 <Input
                   readOnly
-                  value={totalPrice > 0 ? formatVND(totalPrice) : ""}
+                  value={totalPrice > 0 ? `${totalPrice} VND` : ""}
                 />
               </div>
               <Button

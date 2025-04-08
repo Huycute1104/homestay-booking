@@ -179,7 +179,7 @@ const HomeListBookingPage = () => {
     setTimeout(() => {
       setRooms(dummyRooms);
       setIsLoading(false);
-    }, 1000);
+    }, 100);
   }, []);
 
   return (
