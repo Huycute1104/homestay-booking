@@ -22,7 +22,7 @@ const navLinks = [
   { label: "HOMESTAY", path: "/homestay" },
   { label: "VỀ CHÚNG TÔI", path: "/aboutus" },
   { label: "LIÊN HỆ", path: "/contact" },
-  //{ label: "LỊCH SỬ GIAO DỊCH", path: "/booking-history" },
+  { label: "LỊCH SỬ GIAO DỊCH", path: "/booking-history" },
 ];
 
 const NavLink = ({ label, path, isActive, onClick }) => (

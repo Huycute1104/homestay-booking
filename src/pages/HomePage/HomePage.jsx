@@ -6,6 +6,7 @@ import { Card } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { mockHomeStays } from "../../data/mockDat"; 
 import {
   FaBed,
   FaExclamationCircle,
@@ -31,23 +32,6 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-// Dữ liệu giả
-const fakeHomeStays = [
-  {
-    homeStayID: 1,
-    homeStayName: "Hidden Oasis",
-    homeStayAddress: "710 Trần Cao VânXuân Hà, Thanh Khê, Đà Nẵng, Việt Nam",
-    phoneNumber: "0909 123 456",
-    imageUrl: "https://res.cloudinary.com/da3m7fj99/image/upload/v1733306834/Hidden_Oasis_diqeit.jpg",
-  },
-  {
-    homeStayID: 2,
-    homeStayName: "Hidden Oasis 2",
-    homeStayAddress: "456 Biển Xanh, Phú Quốc",
-    phoneNumber: "0987 654 321",
-    imageUrl: "https://res.cloudinary.com/da3m7fj99/image/upload/v1733306834/Hidden_Oasis_diqeit.jpg",
-  }
-];
 
 const HomePage = () => {
   const [homeStays, setHomeStays] = useState([]);
@@ -56,7 +40,7 @@ const HomePage = () => {
   useEffect(() => {
     document.title = "Homestay - Hidden Oasis";
     const timer = setTimeout(() => {
-      setHomeStays(fakeHomeStays);
+      setHomeStays(mockHomeStays);
       setIsLoading(false);
     }, 1000);
 
