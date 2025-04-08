@@ -41,6 +41,39 @@ const ProductListPage = () => {
           location: "Hồ Chí Minh",
           description: "Căn hộ hiện đại tại trung tâm thành phố",
         },
+        {
+          id: 4,
+          name: "Hidden Osias",
+          price: 1400000,
+          image:
+            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3",
+          rating: 4.5,
+          reviews: 76,
+          location: "Đà Nẵng",
+          description: "Căn hộ yên bình mát mẻ",
+        },
+        {
+          id: 5,
+          name: "Luxury Villa Suite",
+          price: 2500000,
+          image:
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3",
+          rating: 4.8,
+          reviews: 128,
+          location: "Đà Nẵng",
+          description: "Biệt thự sang trọng với view biển tuyệt đẹp",
+        },
+        {
+          id: 6,
+          name: "Mountain Retreat",
+          price: 1800000,
+          image:
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3",
+          rating: 4.6,
+          reviews: 95,
+          location: "Đà Lạt",
+          description: "Căn hộ yên tĩnh giữa thiên nhiên trong lành",
+        },
       ];
       setProducts(mockData);
       setLoading(false);

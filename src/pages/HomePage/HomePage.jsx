@@ -1,12 +1,11 @@
-import Footer from "@/components/app/Footer/Footer";
-import Header1 from "@/components/app/Header/Header1";
-import StyleCategorySlider from "@/components/app/Slider";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import Footer from "../../components/app/Footer/Footer";
+import Header1 from "../../components/app/Header/Header1";
+import StyleCategorySlider from "../../components/app/Slider";
+import { Button } from "../../components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import {
   FaBed,
   FaExclamationCircle,
@@ -16,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+// Animation configs
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -31,7 +31,7 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-// ✅ Dữ liệu giả
+// Dữ liệu giả
 const fakeHomeStays = [
   {
     homeStayID: 1,
@@ -60,12 +60,12 @@ const HomePage = () => {
   const [homeStays, setHomeStays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ Dùng useEffect để giả lập load dữ liệu
   useEffect(() => {
+    document.title = "Homestay - Hidden Oasis";
     const timer = setTimeout(() => {
       setHomeStays(fakeHomeStays);
       setIsLoading(false);
-    }, 1000); // giả loading 1 giây
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -92,10 +92,6 @@ const HomePage = () => {
 
   return (
     <Card className="w-full rounded-lg shadow-lg bg-gray-50">
-      <Helmet>
-        <title>Homestay - Hidden Oasis</title>
-        <meta name="description" content="Xin chào đến với Hidden Oasis" />
-      </Helmet>
       <Header1 />
       <div className="border-t border-b">
         <StyleCategorySlider />

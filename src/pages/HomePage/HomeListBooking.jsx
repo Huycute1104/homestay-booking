@@ -1,20 +1,61 @@
-import DateSelector from "@/components/app/BookingPage/DateSelector";
-import CustomerTestimonials from "@/components/app/CustomerTestimonials";
-import FAQ from "@/components/app/FAQ";
-import FeaturedServices from "@/components/app/FeaturedServices";
-import Footer from "@/components/app/Footer/Footer";
-import Header1 from "@/components/app/Header/Header1";
-import StyleCategorySlider from "@/components/app/Slider";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { getRoomListBooking } from "@/services/homeService";
-import { transformToCheckInTime } from "@/utils/helper";
+import DateSelector from "../../components/app/BookingPage/DateSelector";
+import CustomerTestimonials from "../../components/app/CustomerTestimonials";
+import FAQ from "../../components/app/FAQ";
+import FeaturedServices from "../../components/app/FeaturedServices";
+import Footer from "../../components/app/Footer/Footer";
+import Header1 from "../../components/app/Header/Header1";
+import StyleCategorySlider from "../../components/app/Slider";
+import { Button } from "../../components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Skeleton } from "../../components/ui/skeleton";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { FaBed, FaCalendarAlt, FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
+// Dummy data
+const dummyRooms = [
+  {
+    roomID: 1,
+    roomName: "Việt Nam",
+    roomImage: "https://rosaceae.id.vn/Images/9e1d2f8f-05e5-45ea-8b46-d570193413e3_2.jpg  ",
+    roomStyleName: "Luxury",
+    maxGuest: 4,
+    homeStayName: "Sunshine Homestay",
+    bookingCount: 10,
+    roomDescription: "Phòng có tầm nhìn ra biển, nội thất hiện đại và thoải mái."
+  },
+  {
+    roomID: 2,
+    roomName: "Hồng Kông",
+    roomImage: "https://rosaceae.id.vn/Images/1e5a4ba4-9a4c-4f56-a7cd-de5dffeb373b_3.jpg",
+    roomStyleName: "Standard",
+    maxGuest: 2,
+    homeStayName: "Mountain Retreat",
+    bookingCount: 5,
+    roomDescription: "Phòng tiện nghi với view núi yên bình."
+  },
+  {
+    roomID: 3,
+    roomName: "Hàn Quốc",
+    roomImage: "https://rosaceae.id.vn/Images/68f6fad5-9547-431d-94b6-434c4de1e5b0_4.jpg",
+    roomStyleName: "Cozy",
+    maxGuest: 3,
+    homeStayName: "Garden Homestay",
+    bookingCount: 7,
+    roomDescription: ""
+  },
+  {
+    roomID: 4,
+    roomName: "Cozy Garden Room",
+    roomImage: "https://rosaceae.id.vn/Images/e6b58790-34d1-4428-8423-e48d0d90b272_2.jpg",
+    roomStyleName: "Cozy",
+    maxGuest: 3,
+    homeStayName: "Garden Homestay",
+    bookingCount: 7,
+    roomDescription: ""
+  },
+];
 
 const container = {
   hidden: { opacity: 0 },
@@ -117,15 +158,15 @@ const LoadingSkeleton = () => (
             <Skeleton className="h-8 w-full" />
             <Skeleton className="h-16 w-full" />
           </div>
-          <div className="flex gap-3 pt-4">
-            <Skeleton className="h-10 flex-1" />
-            <Skeleton className="h-10 flex-1" />
-          </div>
         </div>
       </div>
     ))}
   </>
 );
+
+const transformToCheckInTime = (date) => {
+  return new Date(date).toISOString();
+};
 
 const HomeListBookingPage = () => {
   const [rooms, setRooms] = useState([]);
@@ -134,26 +175,15 @@ const HomeListBookingPage = () => {
   const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const data = await getRoomListBooking();
-        setRooms(data);
-      } catch (error) {
-        console.error("Error fetching rooms:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchRooms();
+    // Simulate API delay
+    setTimeout(() => {
+      setRooms(dummyRooms);
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   return (
     <Card className="w-full min-h-screen bg-gray-50">
-      <Helmet>
-        <title>Trang chủ - Hidden Oasis</title>
-        <meta name="description" content="Xin chào đến với Hidden Oasis" />
-      </Helmet>
       <Header1 />
       <div className="border-t border-b py-4 bg-white shadow-sm">
         <StyleCategorySlider />
