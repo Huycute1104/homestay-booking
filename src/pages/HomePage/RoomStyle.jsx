@@ -1,12 +1,11 @@
 import Footer from "@/components/app/Footer/Footer";
 import Header1 from "@/components/app/Header/Header1";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getRoomsByStyle } from "@/services/homeService";
 import { motion } from "framer-motion";
 import { Calendar, Home, MapPin, Star, Users } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const container = {
   hidden: { opacity: 0 },
@@ -113,53 +112,39 @@ const RoomCard = ({ room }) => (
   </motion.div>
 );
 
-const LoadingSkeleton = () => (
-  <>
-    {[1, 2, 3].map((i) => (
-      <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg">
-        <Skeleton className="w-full aspect-video" />
-        <div className="p-6 space-y-4">
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-          <div className="space-y-3">
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-8 w-full" />
-            <Skeleton className="h-16 w-full" />
-          </div>
-          <div className="flex gap-3 pt-4">
-            <Skeleton className="h-10 flex-1" />
-            <Skeleton className="h-10 flex-1" />
-          </div>
-        </div>
-      </div>
-    ))}
-  </>
-);
-
 export default function RoomStylePage() {
-  const { roomStyleID } = useParams();
   const { state } = useLocation();
-  const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const roomStyleName = state?.roomStyleName;
 
-  const fetchRooms = useCallback(async () => {
-    if (roomStyleID) {
-      try {
-        const fetchedRooms = await getRoomsByStyle(roomStyleID);
-        setRooms(fetchedRooms);
-      } catch (error) {
-        console.error("Failed to fetch rooms:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  }, [roomStyleID]);
-
-  useEffect(() => {
-    fetchRooms();
-  }, [fetchRooms]);
+  const [rooms] = useState([
+    {
+      roomID: 1,
+      roomName: "Phòng truyền thống",
+      roomImage: "https://source.unsplash.com/random/600x400?room",
+      homeStayName: "Homestay Việt",
+      maxGuest: 4,
+      bookingCount: 12,
+      roomDescription: "Phòng mang phong cách truyền thống Việt Nam.",
+    },
+    {
+      roomID: 2,
+      roomName: "Phòng hiện đại",
+      roomImage: "https://source.unsplash.com/random/600x400?interior",
+      homeStayName: "Homestay Xanh",
+      maxGuest: 2,
+      bookingCount: 8,
+      roomDescription: "Thiết kế hiện đại, tiện nghi cao cấp.",
+    },
+    {
+      roomID: 3,
+      roomName: "Phòng nhiệt đới",
+      roomImage: "https://source.unsplash.com/random/600x400?tropical",
+      homeStayName: "Homestay Biển Xanh",
+      maxGuest: 6,
+      bookingCount: 20,
+      roomDescription: "Không gian thoáng đãng, gần gũi thiên nhiên.",
+    },
+  ]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -188,9 +173,7 @@ export default function RoomStylePage() {
           animate="show"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {loading ? (
-            <LoadingSkeleton />
-          ) : rooms.length === 0 ? (
+          {rooms.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
