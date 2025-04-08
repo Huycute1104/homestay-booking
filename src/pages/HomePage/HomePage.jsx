@@ -35,25 +35,18 @@ const item = {
 const fakeHomeStays = [
   {
     homeStayID: 1,
-    homeStayName: "Hidden Valley Homestay",
-    homeStayAddress: "123 Núi Rừng, Đà Lạt",
+    homeStayName: "Hidden Oasis",
+    homeStayAddress: "710 Trần Cao VânXuân Hà, Thanh Khê, Đà Nẵng, Việt Nam",
     phoneNumber: "0909 123 456",
-    imageUrl: "https://source.unsplash.com/800x600/?homestay,villa,1",
+    imageUrl: "https://res.cloudinary.com/da3m7fj99/image/upload/v1733306834/Hidden_Oasis_diqeit.jpg",
   },
   {
     homeStayID: 2,
-    homeStayName: "Sunset Retreat",
+    homeStayName: "Hidden Oasis 2",
     homeStayAddress: "456 Biển Xanh, Phú Quốc",
     phoneNumber: "0987 654 321",
-    imageUrl: "https://source.unsplash.com/800x600/?homestay,resort,2",
-  },
-  {
-    homeStayID: 3,
-    homeStayName: "Forest Breeze",
-    homeStayAddress: "789 Đồi Thông, Sapa",
-    phoneNumber: "0975 111 222",
-    imageUrl: "https://source.unsplash.com/800x600/?homestay,nature,3",
-  },
+    imageUrl: "https://res.cloudinary.com/da3m7fj99/image/upload/v1733306834/Hidden_Oasis_diqeit.jpg",
+  }
 ];
 
 const HomePage = () => {
